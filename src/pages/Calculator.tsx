@@ -1,42 +1,16 @@
 import logo from '../assets/logo.png'
 import { useState } from 'react';
-import numeral from "numeral"
+import { CalcProcess } from '../components/CalcProcess';
 
-function FormatNumber (children: any) { 
-
-if (numeral.locales['pt-br'] === undefined) {
-  numeral.register('locale', 'pt-br', {
-    delimiters: {
-        thousands: '.',
-        decimal: ','
-    },
-    abbreviations: {
-        thousand: 'mil',
-        million: 'milhões',
-        billion: 'b',
-        trillion: 't'
-    },
-    ordinal: function (number) {
-        return 'º';
-    },
-    currency: {
-        symbol: 'R$'
-    }
-  });
-}
-
-numeral.locale('pt-br')
-
-
-let res = numeral((children/100)).format('$0,0.00')
-
-  return res
+function formatNumber (children: any) { 
+  return "R$ " + children.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.');
 }
 
 
 export function Calculator () {
   
-  const [number, setNumber] = useState('R$0,00')
+  const [formatedNumber, setFormatedNumber] = useState("R$0,00")
+  const [number, setNumber] = useState(0)
 
   return (
     <div className="flex h-screen w-screen justify-center items-center p-4 bg-teal-600">
@@ -46,13 +20,16 @@ export function Calculator () {
         <input 
           type='text'
           inputMode='numeric'
-          value={number}
+          value={formatedNumber}
           id="numberInput"
           onChange={(event) => {
-            let num = event.target.value.replace(/[^0-9]+/g, '')
-            setNumber(FormatNumber(num))
+            let num = parseFloat(event.target.value.replace(/[^0-9]+/g, ''))/100
+            setNumber(num)
+            setFormatedNumber(formatNumber(num))
           }}
         />
+
+        <CalcProcess number={number}/>
       </div>
     </div>
   )
