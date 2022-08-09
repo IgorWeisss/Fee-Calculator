@@ -1,34 +1,33 @@
 import numeral from "numeral"
 
 interface Props {
-  children: number,
+  children: any,
 }
 
-export function FormatNumber (props: Props) { 
+export function FormatNumber (props: Props) {
+  
+  if (numeral.locales['pt-br'] === undefined) {
+    numeral.register('locale', 'pt-br', {
+      delimiters: {
+          thousands: '.',
+          decimal: ','
+      },
+      abbreviations: {
+          thousand: 'mil',
+          million: 'milhões',
+          billion: 'b',
+          trillion: 't'
+      },
+      ordinal: function (number) {
+          return 'º';
+      },
+      currency: {
+          symbol: 'R$'
+      }
+    });
+  }
 
-if (numeral.locales['br'] === undefined) {
-  numeral.register('locale', 'br', {
-    delimiters: {
-        thousands: '.',
-        decimal: ','
-    },
-    abbreviations: {
-        thousand: 'k',
-        million: 'm',
-        billion: 'b',
-        trillion: 't'
-    },
-    ordinal : function (number) {
-        return number === 1 ? 'er' : 'ème';
-    },
-    currency: {
-        symbol: 'R$'
-    }
-  })
-}
-
-numeral.locale('br')
-
+numeral.locale('pt-br')
 
 let res = numeral(props.children).format('$0,0.00')
 
