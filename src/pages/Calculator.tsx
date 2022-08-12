@@ -56,6 +56,8 @@ export function Calculator () {
           <option value={11}>Parcelado 11X</option>
           <option value={12}>Parcelado 12X</option>
         </select>
+        
+          <img src="./src/assets/caret-down.svg" alt="teste" />
 
         <CalcProcess totalValue={number} numberOfInstallments={numberOfInstallments}/>
       </div>
