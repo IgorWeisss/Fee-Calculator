@@ -10,6 +10,7 @@ const calc = {
   termFee: 0.0349,
   transactionFee: 0.70,
   anticipationFeeRate: 0.0199,
+  safetyMargin: 1,
   creditFee: function (totalValue: number, numberOfInstallments: number) {
     return numberOfInstallments ==1 ? totalValue * this.spotFee : totalValue * this.termFee
   },
@@ -37,7 +38,7 @@ const calc = {
     let totalValue = recievedValue
     let totalRecieved = this.calculateNetValue(totalValue, numberOfInstallments)
   
-    while (totalRecieved < recievedValue) {
+    while ((totalRecieved - this.safetyMargin) < recievedValue) {
       totalValue += 0.01
       totalRecieved = this.calculateNetValue(totalValue, numberOfInstallments)
     }
@@ -49,13 +50,14 @@ const calc = {
 
 export function CalcProcess ({ totalValue, numberOfInstallments }: CalcProps) {
 
-  if (totalValue == 0) return <></>
-  let res = calc.calculateNetValueWithoutFees(totalValue, numberOfInstallments)
+  let res = totalValue == 0
+  ? 0
+  : calc.calculateNetValueWithoutFees(totalValue, numberOfInstallments)
 
   return (
     <div className="mt-8">
-      <p>O cliente paga <strong>{formatNumber(res)}</strong></p>
-      <p> em {numberOfInstallments} parcelas de <strong>{formatNumber(res/numberOfInstallments)}</strong></p>
+      <p className="text-gray-500 text-center mb-2">O CLIENTE PAGA <strong className="text-black">{formatNumber(res)}</strong></p>
+      <p className="text-gray-500 text-center"> EM <strong className="text-black">{numberOfInstallments}X</strong> DE <strong className="text-black">{formatNumber(res/numberOfInstallments)}</strong></p>
     </div>
   )
 }
