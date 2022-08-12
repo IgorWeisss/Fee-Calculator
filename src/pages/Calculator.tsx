@@ -1,12 +1,11 @@
 import logo from '../assets/logo.png'
+import caret from '../assets/caret-down.svg'
 import { useState } from 'react';
 import { CalcProcess } from '../components/CalcProcess';
-import care from '../assets/caret-down.svg'
 
 export function formatNumber (children: number) { 
   return "R$ " + children.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, '$1.');
 }
-
 
 export function Calculator () {
   
@@ -39,8 +38,14 @@ export function Calculator () {
         <select
           name="Parcelamento"
           id="numberOfInstallments"
-          className='w-64 bg-gray-50 text-lg outline-teal-600 border-2 rounded p-2 appearance-none customCaret'
-          style={{ backgroundImage: `url(${care})` }}
+          className='w-64 bg-gray-50 text-lg outline-teal-600 border-2 rounded p-2 appearance-none bg-no-repeat'
+          style={
+            {
+              backgroundImage: `url(${caret})`,
+              backgroundPosition: '95% 50%',
+              backgroundSize: '1rem'
+            }
+          }
           onChange={(event)=> {
             setNumberOfInstallments(Number(event.target.value));
           }}
