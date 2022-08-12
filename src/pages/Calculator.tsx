@@ -15,7 +15,7 @@ export function Calculator () {
   const [numberOfInstallments, setNumberOfInstallments] = useState(1)
 
   return (
-    <div className="flex h-screen w-screen justify-center items-center p-4 bg-teal-600">
+    <div className="flex h-screen w-screen justify-center items-start md:items-center p-4 bg-teal-600">
       <div className="bg-gray-50 drop-shadow-xl h-fit w-full md:max-w-lg box-border rounded-2xl p-6 flex items-center justify-center flex-col">
         <img src={logo} alt="Logotipo da Carol Mueller Fotografia" className='w-20 mb-2' />
         <h1 className='font-medium text-xl mb-4'>Calculadora de taxas</h1>
