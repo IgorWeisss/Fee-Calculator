@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 .customCaret {
-  background-image: url('./src/assets/caret-down.svg');
   background-repeat: no-repeat;
   background-position: 95% 50%;
   background-size: 1rem;

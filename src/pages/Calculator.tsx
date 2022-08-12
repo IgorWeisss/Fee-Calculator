@@ -38,7 +38,7 @@ export function Calculator () {
         <select
           name="Parcelamento"
           id="numberOfInstallments"
-          className='w-64 bg-gray-50 text-lg outline-teal-600 border-2 rounded p-2 appearance-none customCaret'
+          className='w-64 bg-gray-50 text-lg outline-teal-600 border-2 rounded p-2 appearance-none bg-customCaret customCaret'
           onChange={(event)=> {
             setNumberOfInstallments(Number(event.target.value));
           }}

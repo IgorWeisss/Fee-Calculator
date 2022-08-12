@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        customCaret: 'url(./src/assets/caret-down.svg)'
+      },
       fontFamily: {
         sans: 'Ubuntu, sans-serif'
       }
